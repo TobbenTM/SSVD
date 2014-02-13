@@ -4,6 +4,12 @@
 
 An easy way of indexing a share, and generating static webpages to view videos using the VLC browser plugin.
 
+##Installation
+
+You need:
+
+* ..
+
 ##TODO
 
 * Create dashboard webpage
