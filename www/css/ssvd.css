@@ -16,3 +16,7 @@ body {
 	display: inline-block;
 	box-shadow: 0 0 25px #222;
 }
+
+.masthead-brand a {
+	color: #fff;
+}
