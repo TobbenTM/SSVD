@@ -8,14 +8,11 @@ An easy way of indexing a share, and generating static webpages to view videos u
 
 You need:
 
-* ..
+* Python 2.7.6+
+* Web server
+* Cron
 
 ##TODO
 
-* Create dashboard webpage
-* Create database model
-* Create indexer
-* Create setup
-* Create tutorials
-* Create settings system
-* ++
+* Create install guides
+* Improve everything

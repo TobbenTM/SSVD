@@ -22,7 +22,7 @@ class db:
 		return self.cursor.fetchall()
 		
 	def getrecent(self, table):
-		self.cursor.execute("SELECT * FROM {0} ORDER BY mod DESC LIMIT 15".format(table))
+		self.cursor.execute("SELECT * FROM {0} ORDER BY mod DESC LIMIT 10".format(table))
 		return self.cursor.fetchall()
 		
 	def truncate(self, table):
