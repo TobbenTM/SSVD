@@ -1,0 +1,14 @@
+{
+  "sambapath": "smb://10.13.37.15/MainShare/",
+  "fullpath": "/mnt/DroboFS/Shares/MainShare/",
+	"wwwpath": "/mnt/DroboFS/Shares/DroboApps/apache/www",
+  "folders": [
+      "Serier",
+      "Filmer"
+      ],
+  "filetypes": [
+      ".mkv",
+      ".avi",
+      ".mp4"
+      ]
+}

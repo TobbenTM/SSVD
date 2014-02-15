@@ -2,35 +2,47 @@
 
 import os
 import db
+from generate import *
+import json
 
 def main():
+
+	#JSON object for settings
+	jsondata = open("conf.json")
+	settings = json.load(jsondata)
+
+	#datasource for database access
 	datasource = db.db("ssvd.db")
 	datasource.open()
-	#datasource.setup(["serier"])
-
-	dir = "/mnt/DroboFS/Shares/MainShare/Serier"
-	suffix = (".mkv", ".avi", ".mp4")
-	i = 0;
 	
-	for dirname, subList, fileList in os.walk(dir):
+	#looping through folders specified in settings
+	for folder in settings["folders"]:
 	
-		#Sort lists alphabetically and case insensitive
-		subList.sort(key = lambda s: s.lower())
-		fileList.sort(key = lambda s: s.lower())
+		#truncate database before new entries
+		datasource.truncate(folder.lower())
 		
-		for filename in fileList:
+		fullpath = str(settings["fullpath"]) + str(folder)
+		for dirname, subList, fileList in os.walk(fullpath):
 		
-			#Ignores all AppleDouble directories
-			if ".AppleDouble" not in dirname:
+			#Sort lists alphabetically and case insensitive
+			subList.sort(key = lambda s: s.lower())
+			fileList.sort(key = lambda s: s.lower())
 			
-				#Checks if filename contains any wanted extensions
-				if any(ext in filename for ext in suffix):
-					
-					i += 1
-					#print("%s; %s, %s, %s" % ("Items: " + str(i), dirname.replace(dir, ''), filename, int(os.stat(os.path.join(dirname, filename)).st_mtime)))
-					#print("<a href=\"/video.html?video=/Serier{0}/{1}\">{1}</a>".format(dirname.replace(dir, ''), filename))
-					datasource.insert("serier", dirname.replace(dir,''), filename, int(os.stat(os.path.join(dirname, filename)).st_mtime))
-					
+			for filename in fileList:
+			
+				#Ignores all AppleDouble directories
+				if ".AppleDouble" not in dirname:
+				
+					#Checks if filename contains any wanted extensions
+					if any(str(ext) in filename for ext in settings["filetypes"]):
+
+						#Insert into database
+						datasource.insert(folder.lower(), dirname.replace(fullpath,''), filename, int(os.stat(os.path.join(dirname, filename)).st_mtime))
+						
+	#Commit and close database when done
 	datasource.close()
+	
+	#Generate webpages
+	generate()
 				
 if __name__ == '__main__': main()
