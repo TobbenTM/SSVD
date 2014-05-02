@@ -33,7 +33,7 @@ def main():
 	#copying necessary files to wwwpath
 	log = dir_util.copy_tree("../www/", settings["wwwpath"])
 	smbpath = open(settings["wwwpath"]+"/js/smbpath.js", "w")
-	smbpath.write("var smbpath = \"settings["sambapath"]\"")
+	smbpath.write("var smbpath = \""+settings["sambapath"]+"\";")
 	smbpath.close()
 
 	print("Completed copying files")

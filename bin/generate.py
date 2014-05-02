@@ -80,17 +80,16 @@ def generate():
 	</div>
 	<div id="{1}" class="panel-collapse collapse">
 		<div class="panel-body">
-			<a href="/video.html?video={0}{2}/{3}">{3}</a></br>
-				""".format(folder, row[0].translate(None, ' !();,./-\''), row[0], row[1]))
+			<a href="video.html?video={0}{2}/{3}">{3}</a></br>
+				""".format(folder, row[0].translate(None, ' !();,./-\'\\'), row[0], row[1]))
 			else:
-				index.write("""<a href="/video.html?video={0}{1}/{2}">{2}</a></br>""".format(folder, row[0], row[1]))
+				index.write("""<a href="video.html?video={0}{1}/{2}">{2}</a></br>""".format(folder, row[0], row[1]))
 			
 			lastpath = row[0]
 		
 		index.write("</div></div></div></div></div></div>")
 			
-	index.write("</div></div></div>")
-	index.write("""</div>
+	index.write("""</div></div></div>
 <div class="col-md-6 recent">
 	<h1>Recently added:</h1>""")
 
@@ -107,7 +106,7 @@ def generate():
 		for row in recent:
 			time = datetime.datetime.fromtimestamp(row[2]).strftime('%d/%m-%Y  %H:%M')
 			index.write("<p>{3} - <a href=\"/video.html?video={0}{1}/{2}\">{2}</a></p>".format(folder, row[0], row[1], time))
-			index.write("<p>({0})</p>".format(row[0]))
+			index.write("<p style=\"font-size:12px\">({0})</p>".format(row[0]))
 
 	index.write("""</div></div></div></div>
 <script src="js/jquery.js"></script>
