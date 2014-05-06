@@ -1,5 +1,6 @@
 {
   "sambapath": "smb://10.13.37.15/MainShare/",
+	"fullurl": "10.13.37.15",
   "fullpath": "/mnt/DroboFS/Shares/MainShare/",
 	"wwwpath": "/mnt/DroboFS/Shares/DroboApps/apache/www",
   "folders": [

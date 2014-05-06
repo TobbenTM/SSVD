@@ -15,6 +15,8 @@ def generate():
 	datasource = db.db("ssvd.db")
 	datasource.open()
 	
+	totalfiles = 0
+	
 	#looping through folders specified in settings
 	for folder in settings["folders"]:
 	
@@ -36,13 +38,14 @@ def generate():
 			
 		all = datasource.getall(folder.lower())
 		lastpath = ''
+		totalfiles += len(all)
 		
 		print("""
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<h4 class="panel-title panel-head">
 			<a data-toggle="collapse" data-parent="#MAIN" href="#{0}">
-				{0}
+				<span class="glyphicon glyphicon-hdd"></span>  {0}
 			</a>
 		</h4>
 	</div>	
@@ -62,22 +65,22 @@ def generate():
 	<div class="panel-heading">
 		<h4 class="panel-title">
 			<a data-toggle="collapse" data-parent="#SEC" href="#{1}">
-				{2}
+				<span class="glyphicon glyphicon-folder-open"></span>  {2}
 			</a>
 		</h4>
 	</div>
 	<div id="{1}" class="panel-collapse collapse">
 		<div class="panel-body">
-			<a href="/video.html?video={0}{2}/{3}">{3}</a></br>
+			<a href="/video.html?video={0}{2}/{3}"><span class="glyphicon glyphicon-play-circle"></span>  {3}</a></br>
 				""".format(folder, row[0].translate(None, ' !();,./-\''), row[0], row[1]))
 			else:
-				print("""<a href="/video.html?video={0}{1}/{2}">{2}</a></br>""".format(folder, row[0], row[1]))
+				print("""<a href="/video.html?video={0}{1}/{2}"><span class="glyphicon glyphicon-play-circle"></span>  {2}</a></br>""".format(folder, row[0], row[1]))
 			
 			lastpath = row[0]
 		
 		print("</div></div></div></div></div></div>")
 			
-	print("</div></div></div>")
+	print("</div></div></div><p>A total of {0} files indexed.</p>".format(totalfiles))
 	
 	datasource.close()
 	

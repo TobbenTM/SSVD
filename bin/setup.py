@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import db
+import shutil
 import json
 
 def main():
@@ -28,5 +29,8 @@ def main():
 	
 	#Commit and close database when done
 	datasource.close()
+	
+	
+	
 
 if __name__ == '__main__': main()
