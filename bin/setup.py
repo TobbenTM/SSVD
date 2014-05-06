@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
 import db
-import shutil
 import json
+from distutils import dir_util
 
 def main():
 
-	# TODO: Copy required files to wwwpath
+	# TODO: Setup cron
 
 	#JSON object for settings
 	jsondata = open("conf.json")
@@ -26,7 +26,19 @@ def main():
 		print("Created table: "+str(folder.lower()))
 
 	print("Database setup completed")
-	
+
+
+	print("Copying files to web server...")
+
+	#copying necessary files to wwwpath
+	log = dir_util.copy_tree("../www/", settings["wwwpath"])
+	smbpath = open(settings["wwwpath"]+"/js/smbpath.js", "w")
+	smbpath.write("var smbpath = \""+settings["sambapath"]+"\";")
+	smbpath.close()
+
+	print("Completed copying files")
+
+
 	#Commit and close database when done
 	datasource.close()
 	
