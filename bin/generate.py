@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import os
 import db
 import json
 import time
@@ -8,12 +9,14 @@ import datetime
 def generate():
 
 	#JSON object for settings
-	jsondata = open("conf.json")
+	jsondata = open(os.path.dirname(__file__) + "/conf.json")
 	settings = json.load(jsondata)
 	
 	#datasource for database access
-	datasource = db.db("ssvd.db")
+	datasource = db.db(os.path.dirname(__file__) + "/ssvd.db")
 	datasource.open()
+	
+	print("Starting web generator")
 
 	#file handlers
 	index = open(settings["wwwpath"]+"/index.html", "w")
@@ -91,7 +94,7 @@ def generate():
 		
 		index.write("</div></div></div></div></div></div>")
 			
-	index.write("""</div></div></div><p>A total of {0} files indexed.</p>
+	index.write("""</div></div></div><p>A total of {0} files indexed.</p></div>
 <div class="col-md-6 recent">
 	<h1>Recently added:</h1>""".format(totalfiles))
 
@@ -121,3 +124,5 @@ def generate():
 
 	#Close file IO
 	index.close()
+	
+	print("Done generating web")

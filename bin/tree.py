@@ -8,15 +8,19 @@ import json
 def main():
 
 	#JSON object for settings
-	jsondata = open("conf.json")
+	jsondata = open(os.path.dirname(__file__) + "/conf.json")
 	settings = json.load(jsondata)
 
 	#datasource for database access
-	datasource = db.db("ssvd.db")
+	datasource = db.db(os.path.dirname(__file__) + "/ssvd.db")
 	datasource.open()
+	
+	print("Starting crawl..")
 	
 	#looping through folders specified in settings
 	for folder in settings["folders"]:
+	
+		print("Crawling " + folder)
 	
 		#truncate database before new entries
 		datasource.truncate(folder.lower())
@@ -38,6 +42,8 @@ def main():
 
 						#Insert into database
 						datasource.insert(folder.lower(), dirname.replace(fullpath,''), filename, int(os.stat(os.path.join(dirname, filename)).st_mtime))
+						
+	print("Done crawling")
 						
 	#Commit and close database when done
 	datasource.close()
