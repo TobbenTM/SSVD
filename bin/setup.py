@@ -11,12 +11,12 @@ def main():
 	# TODO: Setup cron
 
 	#JSON object for settings
-	jsondata = open(os.path.dirname(__file__) + "/conf.json")
+	jsondata = open(os.path.dirname(os.path.abspath(__file__)) + "/conf.json")
 	settings = json.load(jsondata)
 
 	#datasource for database access
         os.remove("ssvd.db")
-	datasource = db.db(os.path.dirname(__file__) + "/ssvd.db")
+	datasource = db.db(os.path.dirname(os.path.abspath(__file__)) + "/ssvd.db")
 	datasource.open()
 	
 	print("Starting database install...")
@@ -34,7 +34,7 @@ def main():
 	print("Copying files to web server...")
 
 	#copying necessary files to wwwpath
-	log = dir_util.copy_tree(os.path.dirname(__file__) + "/../www/", settings["wwwpath"])
+	log = dir_util.copy_tree(os.path.dirname(os.path.abspath(__file__)) + "/../www/", settings["wwwpath"])
 	smbpath = open(settings["wwwpath"]+"/js/smbpath.js", "w")
 	smbpath.write("var smbpath = \""+settings["sambapath"]+"\";")
 	smbpath.close()

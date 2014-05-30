@@ -9,11 +9,11 @@ import datetime
 def generate():
 
 	#JSON object for settings
-	jsondata = open(os.path.dirname(__file__) + "/conf.json")
+	jsondata = open(os.path.dirname(os.path.abspath(__file__)) + "/conf.json")
 	settings = json.load(jsondata)
 	
 	#datasource for database access
-	datasource = db.db(os.path.dirname(__file__) + "/ssvd.db")
+	datasource = db.db(os.path.dirname(os.path.abspath(__file__)) + "/ssvd.db")
 	datasource.open()
 	
 	print("Starting web generator")
