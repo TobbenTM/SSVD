@@ -9,14 +9,18 @@ cont.innerHTML="<embed type=\"application/x-vlc-plugin\" id=\"vlc\" pluginspage=
 var vlc = document.getElementById("vlc");
 vlc.input.time = parseInt(getVariable("start"))*1000;
 
+if(navigator.userAgent.toLowerCase().indexOf("android") > -1){
+  window.open("data:text/m3u;charset=utf-8," + escape("#EXTM3U\n#EXTINF:5000," + getVariable("video").split("%20").join(" ") + "\n" + path));
+}
+
 function getVariable(variable) {
-       var get = window.location.search.substring(1);
-       var vars = get.split("&");
-       for (var i=0; i < vars.length; i++) {
-               var pair = vars[i].split("=");
-               if(pair[0] == variable){
-			   return pair[1];
-			   }
-       }
-       return(false);
+  var get = window.location.search.substring(1);
+  var vars = get.split("&");
+  for (var i=0; i < vars.length; i++) {
+    var pair = vars[i].split("=");
+    if(pair[0] == variable){
+      return pair[1];
+    }
+  }
+  return(false);
 }

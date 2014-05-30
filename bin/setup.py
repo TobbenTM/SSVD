@@ -3,6 +3,7 @@
 import os
 import db
 import json
+import os
 from distutils import dir_util
 
 def main():
@@ -14,6 +15,7 @@ def main():
 	settings = json.load(jsondata)
 
 	#datasource for database access
+        os.remove("ssvd.db")
 	datasource = db.db(os.path.dirname(__file__) + "/ssvd.db")
 	datasource.open()
 	
