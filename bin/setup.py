@@ -15,7 +15,6 @@ def main():
 	settings = json.load(jsondata)
 
 	#datasource for database access
-        os.remove("ssvd.db")
 	datasource = db.db(os.path.dirname(os.path.abspath(__file__)) + "/ssvd.db")
 	datasource.open()
 	

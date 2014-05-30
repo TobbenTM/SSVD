@@ -7,7 +7,7 @@ class db:
 		self.dbname = dbname
 		
 	def setup(self, table):
-		self.cursor.execute("CREATE TABLE {0} (path text, file text, mod integer)".format(table))
+		self.cursor.execute("CREATE TABLE %s (path text, file text, mod integer)" % table)
 		
 	def open(self):
 		self.connection = sqlite3.connect(self.dbname)
@@ -15,18 +15,18 @@ class db:
 		self.cursor = self.connection.cursor()
 		
 	def insert(self, table, path, file, mod):
-		self.cursor.execute("INSERT INTO " + table + " VALUES (?, ?, ?)", (path, file, mod))
+		self.cursor.execute("INSERT INTO %s VALUES (?, ?, ?)" % table, (path, file, mod))
 		
 	def getall(self, table):
-		self.cursor.execute("SELECT * FROM {0}".format(table))
+		self.cursor.execute("SELECT * FROM %s" % table)
 		return self.cursor.fetchall()
 		
 	def getrecent(self, table):
-		self.cursor.execute("SELECT * FROM {0} ORDER BY mod DESC LIMIT 10".format(table))
+		self.cursor.execute("SELECT * FROM %s ORDER BY mod DESC LIMIT 10" % table)
 		return self.cursor.fetchall()
 		
 	def truncate(self, table):
-		self.cursor.execute("DELETE FROM {0}".format(table))
+		self.cursor.execute("DELETE FROM %s" % table)
 		
 	def close(self):
 		self.connection.commit()
