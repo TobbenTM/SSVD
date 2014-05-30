@@ -23,12 +23,16 @@ def main():
 	#looping through folders specified in settings
 	for folder in settings["folders"]:
 	
+		if(folder == ""):
+			tablename = "Videos"
+		else:
+			tablename = str(folder.lower())
+	
 		#Creating tables for each of the folders in settings
-		datasource.setup(str(folder.lower()))	
-		print("Created table: "+str(folder.lower()))
+		datasource.setup(tablename)	
+		print("Created table: " + tablename)
 
 	print("Database setup completed")
-
 
 	print("Copying files to web server...")
 

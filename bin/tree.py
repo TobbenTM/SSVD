@@ -20,10 +20,15 @@ def main():
 	#looping through folders specified in settings
 	for folder in settings["folders"]:
 	
+		if(folder == ""):
+			tablename = "Videos"
+		else:
+			tablename = folder.lower()
+	
 		print("Crawling " + folder)
 	
 		#truncate database before new entries
-		datasource.truncate(folder.lower())
+		datasource.truncate(tablename)
 		
 		fullpath = str(settings["fullpath"]) + str(folder)
 		for dirname, subList, fileList in os.walk(fullpath):
@@ -41,7 +46,7 @@ def main():
 					if any(str(ext) in filename for ext in settings["filetypes"]):
 
 						#Insert into database
-						datasource.insert(folder.lower(), dirname.replace(fullpath,''), filename, int(os.stat(os.path.join(dirname, filename)).st_mtime))
+						datasource.insert(tablename, dirname.replace(fullpath,''), filename, int(os.stat(os.path.join(dirname, filename)).st_mtime))
 						
 	print("Done crawling")
 						

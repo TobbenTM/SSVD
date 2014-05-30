@@ -39,6 +39,7 @@ def generate():
 				<h3 class="masthead-brand">SSVD</h3>
 			</div>
 			<div class="row">
+				<!-- Start library column -->
 				<div class="col-md-6">
 					<h1>Library:</h1>""")
 	
@@ -49,8 +50,13 @@ def generate():
 	
 	#looping through folders specified in settings
 	for folder in settings["folders"]:
+	
+		if(folder == ""):
+			tablename = "Videos"
+		else:
+			tablename = folder.lower()
 			
-		all = datasource.getall(folder.lower())
+		all = datasource.getall(tablename)
 		lastpath = ''
 		totalfiles += len(all)
 		
@@ -66,7 +72,7 @@ def generate():
 	<div id="{0}" class="panel-collapse collapse">
 		<div class="panel-body">
 			<div class="panel-group" id="SEC">
-		""".format(folder))
+		""".format(tablename))
 		
 		#Generate library for current folder
 		for row in all:
@@ -92,9 +98,9 @@ def generate():
 
 			lastpath = row[0]
 		
-		index.write("</div></div></div></div></div></div>")
+		index.write("""</div></div></div></div></div></div></div>""")
 			
-	index.write("""</div></div></div><p>A total of {0} files indexed.</p></div>
+	index.write("""</div><p>A total of {0} files indexed.</p></div>
 <div class="col-md-6 recent">
 	<h1>Recently added:</h1>""".format(totalfiles))
 
@@ -103,9 +109,14 @@ def generate():
 	#looping through folders specified in settings
 	for folder in settings["folders"]:
 	
-		recent = datasource.getrecent(folder.lower())
+		if(folder == ""):
+			tablename = "Videos"
+		else:
+			tablename = folder.lower()
+	
+		recent = datasource.getrecent(tablename)
 		
-		index.write("<h3>{0}:</h3>".format(folder))
+		index.write("<h3>{0}:</h3>".format(tablename))
 		
 		#Generate recent list for current folder
 		for row in recent:
