@@ -121,7 +121,7 @@ def generate():
 		#Generate recent list for current folder
 		for row in recent:
 			time = datetime.datetime.fromtimestamp(row[2]).strftime('%d/%m-%Y  %H:%M')
-			index.write("<p>{3} - <a href=\"/video.html?video={0}{1}/{2}\">{2}</a></p>".format(folder, row[0], row[1], time))
+			index.write("<p>{3} - <a href=\"video.html?video={0}{1}/{2}\">{2}</a></p>".format(folder, row[0], row[1], time))
 			index.write("<p style=\"font-size:12px\">({0})</p>".format(row[0]))
 
 	index.write("""</div></div></div></div>
